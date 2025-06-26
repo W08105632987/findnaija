@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FindNaija - Lost & Found</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="auth-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <script>
+  // Wait for the page to load
+  document.addEventListener('DOMContentLoaded', function() {
+    // Select the flash messages container
+    const flashMessages = document.querySelector('.flash-messages');
+    if (flashMessages) {
+      // Set a timeout to remove the flash messages after 5 seconds (5000 ms)
+      setTimeout(() => {
+        // You can fade it out smoothly:
+        flashMessages.style.transition = 'opacity 1s ease';
+        flashMessages.style.opacity = '0';
+
+        // Then remove from DOM after the fade out:
+        setTimeout(() => {
+          flashMessages.remove();
+        }, 1000);
+      }, 5000);
+    }
+  });
+</script>
+
+</body>
+</html>

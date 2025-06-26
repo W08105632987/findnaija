@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="form-card dashboard-card">
+  <h2>👋 Welcome, {{ current_user.username }}!</h2>
+  <p style="margin-bottom: 25px; font-size: 15px; color: #444;">
+    What would you like to do today?
+  </p>
+
+  <a href="{{ url_for('main.post_item') }}" class="form-button dashboard-button">
+    📦 Post a Lost Item
+  </a>
+
+  <a href="{{ url_for('main.view_items') }}" class="form-button dashboard-button">
+    🔍 View Lost & Found Items
+  </a>
+  <a href="{{ url_for('main.my_items') }}" class="form-button dashboard-button">🧾 My Posted Items</a>
+  
+</div>
+
+<a href="{{ url_for('main.logout') }}" class="btn-logout" title="Logout">
+  🔒 Logout
+</a>
+
+{% endblock %}

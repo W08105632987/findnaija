@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<a href="{{ url_for('main.dashboard') }}" class="btn-back">← Back to Dashboard</a>
+
+<h2 style="text-align:center; margin-bottom: 30px;">🧾 My Lost & Found Posts</h2>
+{% if items %}
+  <div class="item-flex-container">
+    {% for item in items %}
+    <div class="item-card">
+      {% if item.image_file %}
+        <img src="{{ url_for('static', filename='uploads/' ~ item.image_file) }}"
+             alt="Item Image" class="item-image">
+      {% endif %}
+      <h3>{{ item.title }}</h3>
+      <p><strong>📍 Location:</strong> {{ item.location }}</p>
+      <p>{{ item.description }}</p>
+      <p><strong>📞 Contact:</strong> {{ item.contact_info }}</p>
+      <p class="item-date">📅 {{ item.date_posted.strftime('%b %d, %Y') }}</p>
+
+      <form action="{{ url_for('main.delete_item', item_id=item.id) }}" method="POST" onsubmit="return confirm('Delete this item?');">
+        <button type="submit" class="form-button" style="background-color: darkred; margin-top: 10px;">🗑️ Delete</button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p style="text-align:center; color: gray;">You have not posted any items yet.</p>
+{% endif %}
+{% endblock %}
