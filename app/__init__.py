@@ -15,6 +15,9 @@ migrate = Migrate()
 def create_app():
     app = Flask(__name__, instance_relative_config=True)  # Looks for 'instance/' folder
 
+    # ✅ Ensure instance folder exists
+    os.makedirs(app.instance_path, exist_ok=True)
+
     # ✅ Use environment variable for secret key
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'fallback-key')
 
